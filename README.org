@@ -2,7 +2,7 @@
 #+AUTHOR: Elif Güler
 #+DATE: August 2026
 
-* Index
+** Index
 
 - [[#project-overview][Project Overview]]
 - [[#dataset][Dataset]]
@@ -12,14 +12,14 @@
 - [[#project-structure][Project Structure]]
 - [[#author][Author]]
 
-* Project Overview
+** Project Overview
   :PROPERTIES:
   :CUSTOM_ID: project-overview
   :END:
 
 This project applies a supervised machine learning pipeline to classify breast tumors as *benign* or *malignant*, using diagnostic features computed from digitized images of fine needle aspirate (FNA) samples of breast masses.
 
-* Dataset
+** Dataset
   :PROPERTIES:
   :CUSTOM_ID: dataset
   :END:
@@ -60,7 +60,7 @@ found in the image).
 | ~symmetry~ | Nucleus symmetry |
 | ~fractal_dimension~ | "Coastline approximation" - 1 (contour complexity) |
 
-* Workflow
+** Workflow
   :PROPERTIES:
   :CUSTOM_ID: workflow
   :END:
@@ -72,18 +72,18 @@ found in the image).
 
 ** 2. Exploratory Data Analysis (EDA)
 
-* Class distribution
-* Density plots
-* Boxplots by diagnosis
-* Correlation heatmap
-* Scatter matrix
+**** Class distribution
+**** Density plots
+**** Boxplots by diagnosis
+**** Correlation heatmap
+**** Scatter matrix
  *Output*: ~plots/~
 
 ** 3. Feature Engineering
 
-* Train/test split (80/20, stratified) *before* scaling, to avoid data leakage.
-* Standardization (~StandardScaler~, fit on training data only).
-* Feature selection:
+**** Train/test split (80/20, stratified) *before* scaling, to avoid data leakage.
+**** Standardization (~StandardScaler~, fit on training data only).
+**** Feature selection:
 
   * ~SelectKBest~ with ~f_classif~
   * ~RFE~
@@ -93,15 +93,15 @@ found in the image).
 
 ** 4. Model Training & Evaluation
 
-* Algorithms:
+*** Algorithms:
 
   * Logistic Regression
   * K-Nearest Neighbors
   * Support Vector Machine
   * Gaussian Naive Bayes
   * CART (Decision Tree)
-* Hyperparameter tuning via ~GridSearchCV~ (5-fold CV) over each model's own parameter grid.
-* Metrics:
+*** Hyperparameter tuning via ~GridSearchCV~ (5-fold CV) over each model's own parameter grid.
+*** Metrics:
 
   * Accuracy
   * F1 Score
@@ -113,7 +113,7 @@ found in the image).
 
 ** 5. Model Comparison
 
-* Tabular comparison of all tuned models, sorted by accuracy.
+*** Tabular comparison of all tuned models, sorted by accuracy.
  *Output*: ~results/results_models.csv~
 
 - Tools Used
@@ -128,7 +128,7 @@ found in the image).
 | Modeling & Evaluation | ~scikit-learn~ |
 | Model persistence | ~joblib~ |
 
-* Project Structure
+*** Project Structure
   :PROPERTIES:
   :CUSTOM_ID: project-structure
   :END:
