@@ -10,7 +10,6 @@
 - [[#workflow][Workflow]]
 - [[#tools-used][Tools Used]]
 - [[#project-structure][Project Structure]]
-- [[#author][Author]]
 
 ** Project Overview
   :PROPERTIES:
@@ -143,7 +142,7 @@ found in the image).
 │   └── results_models.csv    # final metrics table, all tuned models
 ├── script/
 │   └── helper.py             # helper functions for exporting pipeline outputs
-├── notebook.ipynb            # main analysis notebook (full pipeline, start to finish)
+├── breast_cancer_ml_project.ipynb            # main analysis notebook (full pipeline, start to finish)
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
