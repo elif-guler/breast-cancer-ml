@@ -1,0 +1,153 @@
+#+TITLE: Machine Learning Pipeline for Breast Cancer Diagnosis Prediction
+#+AUTHOR: Elif Güler
+#+DATE: August 2026
+
+* Index
+
+- [[#project-overview][Project Overview]]
+- [[#dataset][Dataset]]
+- [[#features-description][Features Description]]
+- [[#workflow][Workflow]]
+- [[#tools-used][Tools Used]]
+- [[#project-structure][Project Structure]]
+- [[#author][Author]]
+
+* Project Overview
+  :PROPERTIES:
+  :CUSTOM_ID: project-overview
+  :END:
+
+This project applies a supervised machine learning pipeline to classify breast tumors as *benign* or *malignant*, using diagnostic features computed from digitized images of fine needle aspirate (FNA) samples of breast masses.
+
+* Dataset
+  :PROPERTIES:
+  :CUSTOM_ID: dataset
+  :END:
+
+The dataset used is the *Breast Cancer Wisconsin (Diagnostic)* dataset from the
+[[https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic][UCI Machine Learning Repository]].
+
+#+BEGIN_QUOTE
+Wolberg, W., Mangasarian, O., Street, N., & Street, W. (1993). Breast Cancer Wisconsin (Diagnostic) [Dataset]. UCI Machine Learning Repository.
+[[https://doi.org/10.24432/C5DW2B][https://doi.org/10.24432/C5DW2B]].
+#+END_QUOTE
+
+* *Instances*: 569
+* *Features*: 30 numeric input features
+* *Target variable*: ~M~ = Malignant, ~B~ = Benign
+* *Missing values*: none
+* *Original dataset is not included in this repository* — see ~data/README.md~ for how to obtain it.
+
+- Features Description
+  :PROPERTIES:
+  :CUSTOM_ID: features-description
+  :END:
+
+Each of the 10 base cell-nucleus properties below is expressed as 3 columns:
+its *mean*, *standard error*, and *worst* (average of the three largest values
+found in the image).
+
+| Feature Description | Description |
+|---------------------+-------------|
+| ~radius~ | Average distance from the nucleus center to its perimeter |
+| ~texture~ | Variability (std. dev.) of the gray-scale pixel values |
+| ~perimeter~ | Nucleus perimeter |
+| ~area~ | Nucleus area |
+| ~smoothness~ | Local variation in radius lengths |
+| ~compactness~ | ~perimeter^2 / area - 1.0~ |
+| ~concavity~ | Severity of concave (inward-curving) portions of the contour |
+| ~concave_points~ | Number of concave portions of the contour |
+| ~symmetry~ | Nucleus symmetry |
+| ~fractal_dimension~ | "Coastline approximation" - 1 (contour complexity) |
+
+* Workflow
+  :PROPERTIES:
+  :CUSTOM_ID: workflow
+  :END:
+
+** 1. Data Acquisition & Preparation
+
+* Load the raw UCI file, drop the ID column, encode the diagnosis label.
+* *Output*: ~data/breast_df.csv~
+
+** 2. Exploratory Data Analysis (EDA)
+
+* Class distribution
+* Density plots
+* Boxplots by diagnosis
+* Correlation heatmap
+* Scatter matrix
+* *Output*: ~plots/~
+
+** 3. Feature Engineering
+
+* Train/test split (80/20, stratified) *before* scaling, to avoid data leakage.
+* Standardization (~StandardScaler~, fit on training data only).
+* Feature selection:
+
+  * ~SelectKBest~ with ~f_classif~
+  * ~RFE~
+  * ~k~ chosen by cross-validated accuracy
+  * Final set is the intersection of both methods
+* *Output*: ~data/~ (train/test splits, scaled and reduced versions)
+
+** 4. Model Training & Evaluation
+
+* Algorithms:
+
+  * Logistic Regression
+  * K-Nearest Neighbors
+  * Support Vector Machine
+  * Gaussian Naive Bayes
+  * CART (Decision Tree)
+* Hyperparameter tuning via ~GridSearchCV~ (5-fold CV) over each model's own parameter grid.
+* Metrics:
+
+  * Accuracy
+  * F1 Score
+  * MCC
+  * Confusion Matrix
+  * Classification Report
+  * ROC Curve & AUC
+* *Output*: ~models/~, ~plots/~
+
+** 5. Model Comparison
+
+* Tabular comparison of all tuned models, sorted by accuracy.
+* *Output*: ~results/results_models.csv~
+
+- Tools Used
+  :PROPERTIES:
+  :CUSTOM_ID: tools-used
+  :END:
+
+| Category | Libraries |
+|----------+-----------|
+| Data Handling | ~pandas~, ~numpy~ |
+| Visualization | ~matplotlib~, ~seaborn~ |
+| Modeling & Evaluation | ~scikit-learn~ |
+| Model persistence | ~joblib~ |
+
+* Project Structure
+  :PROPERTIES:
+  :CUSTOM_ID: project-structure
+  :END:
+
+#+BEGIN_SRC text
+.
+├── data/
+│   └── README.md             # how to obtain the raw dataset; processed CSVs land here
+├── models/                   # fitted models (.joblib), one per algorithm
+├── plots/                    # exported figures (.png) from EDA and evaluation
+├── results/
+│   └── results_models.csv    # final metrics table, all tuned models
+├── script/
+│   └── helper.py             # helper functions for exporting pipeline outputs
+├── notebook.ipynb            # main analysis notebook (full pipeline, start to finish)
+├── requirements.txt
+├── .gitignore
+├── LICENSE
+└── README.md
+#+END_SRC
+
+
