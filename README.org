@@ -32,11 +32,11 @@ Wolberg, W., Mangasarian, O., Street, N., & Street, W. (1993). Breast Cancer Wis
 [[https://doi.org/10.24432/C5DW2B][https://doi.org/10.24432/C5DW2B]].
 #+END_QUOTE
 
-* *Instances*: 569
-* *Features*: 30 numeric input features
-* *Target variable*: ~M~ = Malignant, ~B~ = Benign
-* *Missing values*: none
-* *Original dataset is not included in this repository* — see ~data/README.md~ for how to obtain it.
+ *Instances*: 569
+ *Features*: 30 numeric input features
+ *Target variable*: ~M~ = Malignant, ~B~ = Benign
+ *Missing values*: none
+ *Original dataset is not included in this repository* — see ~data/README.md~ for how to obtain it.
 
 - Features Description
   :PROPERTIES:
@@ -68,7 +68,7 @@ found in the image).
 ** 1. Data Acquisition & Preparation
 
 * Load the raw UCI file, drop the ID column, encode the diagnosis label.
-* *Output*: ~data/breast_df.csv~
+ *Output*: ~data/breast_df.csv~
 
 ** 2. Exploratory Data Analysis (EDA)
 
@@ -77,7 +77,7 @@ found in the image).
 * Boxplots by diagnosis
 * Correlation heatmap
 * Scatter matrix
-* *Output*: ~plots/~
+ *Output*: ~plots/~
 
 ** 3. Feature Engineering
 
@@ -89,7 +89,7 @@ found in the image).
   * ~RFE~
   * ~k~ chosen by cross-validated accuracy
   * Final set is the intersection of both methods
-* *Output*: ~data/~ (train/test splits, scaled and reduced versions)
+ *Output*: ~data/~ (train/test splits, scaled and reduced versions)
 
 ** 4. Model Training & Evaluation
 
@@ -109,12 +109,12 @@ found in the image).
   * Confusion Matrix
   * Classification Report
   * ROC Curve & AUC
-* *Output*: ~models/~, ~plots/~
+ *Output*: ~models/~, ~plots/~
 
 ** 5. Model Comparison
 
 * Tabular comparison of all tuned models, sorted by accuracy.
-* *Output*: ~results/results_models.csv~
+ *Output*: ~results/results_models.csv~
 
 - Tools Used
   :PROPERTIES:
