@@ -139,10 +139,8 @@ found in the image).
 ├── models/                   # fitted models (.joblib), one per algorithm
 ├── plots/                    # exported figures (.png) from EDA and evaluation
 ├── results/
-│   └── results_models.csv    # final metrics table, all tuned models
-├── script/
-│   └── helper.py             # helper functions for exporting pipeline outputs
-├── breast_cancer_ml_project.ipynb            # main analysis notebook (full pipeline, start to finish)
+│   └── results_models.csv    # final metrics table, all tuned models 
+├── breast_cancer_classification.ipynb            # main analysis notebook (full pipeline, start to finish)
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
