@@ -4,24 +4,59 @@
 
 ** Index
 
-- [[#project-overview][Project Overview]]
-- [[#dataset][Dataset]]
-- [[#features-description][Features Description]]
-- [[#workflow][Workflow]]
-- [[#tools-used][Tools Used]]
-- [[#project-structure][Project Structure]]
+*** [[#project-overview][Project Overview]]
+*** [[#usage][Usage]]
+*** [[#dataset][Dataset]]
+*** [[#features-description][Features Description]]
+*** [[#workflow][Workflow]]
+*** [[#tools-used][Tools Used]]
 
 ** Project Overview
-  :PROPERTIES:
-  :CUSTOM_ID: project-overview
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: project-overview
+:END:
 
 This project applies a supervised machine learning pipeline to classify breast tumors as *benign* or *malignant*, using diagnostic features computed from digitized images of fine needle aspirate (FNA) samples of breast masses.
 
+** Usage
+:PROPERTIES:
+:CUSTOM_ID: usage
+:END:
+
+*** Clone the repository
+
+#+begin_src bash
+git clone https://github.com/elif-guler/breast-cancer-ml.git
+cd breast-cancer-ml
+#+end_src
+
+*** Create the environment
+
+#+begin_src bash
+conda create -n breast-cancer-ml python=3.11
+conda activate breast-cancer-ml
+#+end_src
+
+*** Install dependencies
+
+#+begin_src bash
+pip install -r requirements.txt
+#+end_src
+
+*** Run the notebook
+
+#+begin_src bash
+jupyter notebook
+#+end_src
+
+Open ~breast_cancer_classification.ipynb~ and run the cells from beginning to end.
+
+Generated models, plots, and evaluation results are saved in ~models/~, ~plots/~, and ~results/~ respectively.
+
 ** Dataset
-  :PROPERTIES:
-  :CUSTOM_ID: dataset
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: dataset
+:END:
 
 The dataset used is the *Breast Cancer Wisconsin (Diagnostic)* dataset from the
 [[https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic][UCI Machine Learning Repository]].
@@ -31,13 +66,13 @@ Wolberg, W., Mangasarian, O., Street, N., & Street, W. (1993). Breast Cancer Wis
 [[https://doi.org/10.24432/C5DW2B][https://doi.org/10.24432/C5DW2B]].
 #+END_QUOTE
 
- *Instances*: 569
- *Features*: 30 numeric input features
- *Target variable*: ~M~ = Malignant, ~B~ = Benign
- *Missing values*: none
- *Original dataset is not included in this repository* — see ~data/README.md~ for how to obtain it.
+*Instances*: 569
+*Features*: 30 numeric input features
+*Target variable*: ~M~ = Malignant, ~B~ = Benign
+*Missing values*: none
+*Original dataset is not included in this repository* — see ~data/README.md~ for how to obtain it.
 
-- Features Description
+* Features Description
   :PROPERTIES:
   :CUSTOM_ID: features-description
   :END:
@@ -60,14 +95,14 @@ found in the image).
 | ~fractal_dimension~ | "Coastline approximation" - 1 (contour complexity) |
 
 ** Workflow
-  :PROPERTIES:
-  :CUSTOM_ID: workflow
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: workflow
+:END:
 
 ** 1. Data Acquisition & Preparation
 
 **** Load the raw UCI file, drop the ID column, encode the diagnosis label.
- *Output*: ~data/breast_df.csv~
+*Output*: ~data/breast_df.csv~
 
 ** 2. Exploratory Data Analysis (EDA)
 
@@ -76,7 +111,7 @@ found in the image).
 **** Boxplots by diagnosis
 **** Correlation heatmap
 **** Scatter matrix
- *Output*: ~plots/~
+*Output*: ~plots/~
 
 ** 3. Feature Engineering
 
@@ -84,38 +119,47 @@ found in the image).
 **** Standardization (~StandardScaler~, fit on training data only).
 **** Feature selection:
 
-  * ~SelectKBest~ with ~f_classif~
-  * ~RFE~
-  * ~k~ chosen by cross-validated accuracy
-  * Final set is the intersection of both methods
- *Output*: ~data/~ (train/test splits, scaled and reduced versions)
+***** ~SelectKBest~ with ~f_classif~
+***** ~RFE~
+***** ~k~ chosen by cross-validated accuracy
+***** Final set is the intersection of both methods
+  *Output*: ~data/~ (train/test splits, scaled and reduced versions)
 
 ** 4. Model Training & Evaluation
 
 *** Algorithms:
 
-  * Logistic Regression
-  * K-Nearest Neighbors
-  * Support Vector Machine
-  * Gaussian Naive Bayes
-  * CART (Decision Tree)
-*** Hyperparameter tuning via ~GridSearchCV~ (5-fold CV) over each model's own parameter grid.
-*** Metrics:
+***** Logistic Regression
 
-  * Accuracy
-  * F1 Score
-  * MCC
-  * Confusion Matrix
-  * Classification Report
-  * ROC Curve & AUC
- *Output*: ~models/~, ~plots/~
+***** K-Nearest Neighbors
+
+***** Support Vector Machine
+
+***** Gaussian Naive Bayes
+
+***** CART (Decision Tree)
+  *** Hyperparameter tuning via ~GridSearchCV~ (5-fold CV) over each model's own parameter grid.
+  *** Metrics:
+
+***** Accuracy
+
+***** F1 Score
+
+***** MCC
+
+***** Confusion Matrix
+
+***** Classification Report
+
+***** ROC Curve & AUC
+  *Output*: ~models/~, ~plots/~
 
 ** 5. Model Comparison
 
 *** Tabular comparison of all tuned models, sorted by accuracy.
- *Output*: ~results/results_models.csv~
+*Output*: ~results/results_models.csv~
 
-- Tools Used
+***** Tools Used
   :PROPERTIES:
   :CUSTOM_ID: tools-used
   :END:
@@ -126,25 +170,3 @@ found in the image).
 | Visualization | ~matplotlib~, ~seaborn~ |
 | Modeling & Evaluation | ~scikit-learn~ |
 | Model persistence | ~joblib~ |
-
-*** Project Structure
-  :PROPERTIES:
-  :CUSTOM_ID: project-structure
-  :END:
-
-#+BEGIN_SRC text
-.
-├── data/
-│   └── README.md             # how to obtain the raw dataset; processed CSVs land here
-├── models/                   # fitted models (.joblib), one per algorithm
-├── plots/                    # exported figures (.png) from EDA and evaluation
-├── results/
-│   └── results_models.csv    # final metrics table, all tuned models 
-├── breast_cancer_classification.ipynb            # main analysis notebook (full pipeline, start to finish)
-├── requirements.txt
-├── .gitignore
-├── LICENSE
-└── README.md
-#+END_SRC
-
-
