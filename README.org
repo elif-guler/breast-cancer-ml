@@ -49,7 +49,7 @@ pip install -r requirements.txt
 jupyter notebook
 #+end_src
 
-Open ~breast_cancer_classification.ipynb~ and run the cells from beginning to end.
+Open ~breastcancer_classification.ipynb~ and run the cells from beginning to end.
 
 Generated models, plots, and evaluation results are saved in ~models/~, ~plots/~, and ~results/~ respectively.
 
