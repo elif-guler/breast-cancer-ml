@@ -1,0 +1,8 @@
+Model,"Default, CV (30 feat.)","Tuned, CV (30 feat.)","Tuned, test (30 feat.)","Tuned, test (reduced)",Missed malignant (30 feat.)
+Logistic Regression,97.58,97.36,98.25,96.49,2
+Random Forest,95.75,96.7,97.37,96.49,3
+Support Vector Machine,97.14,97.58,97.37,97.37,3
+K-Nearest Neighbors,96.41,97.58,96.49,94.74,4
+Linear Discriminant Analysis,95.31,95.6,96.49,96.49,4
+CART,92.16,92.97,95.61,92.98,4
+Gaussian Naive Bayes,93.85,93.85,92.11,89.47,6

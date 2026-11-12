@@ -1,0 +1,8 @@
+Model,mean (%),std (pp)
+Logistic Regression,97.582,1.402
+Linear Discriminant Analysis,95.311,1.985
+K-Nearest Neighbors,96.41,2.423
+Support Vector Machine,97.143,1.491
+Gaussian Naive Bayes,93.846,2.563
+CART,92.161,3.026
+Random Forest,95.751,2.658

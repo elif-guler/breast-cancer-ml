@@ -1,0 +1,7 @@
+Feature set,# features,CV accuracy (%),CV std (pp),pairs |r|>0.9,max |r|
+All 30 features (no selection),30,97.5824,1.4015,21,0.9978
+SelectKBest ∩ RFE (original subset: k=19 / k=17),16,96.7766,1.6283,16,0.9937
+"SelectKBest, k=24 (1-SE rule)",24,97.5824,1.5121,21,0.9978
+"RFE, k=18 (1-SE rule)",18,97.7289,1.2346,16,0.9937
+"Correlation filter, |r| <= 0.95",23,97.2161,1.3823,3,0.9206
+"Correlation filter, |r| <= 0.90",21,97.2894,1.1948,0,0.897
